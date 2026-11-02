@@ -146,7 +146,7 @@ test("the family's top line: the brand leads home, the breadcrumb marks the page
 
 test("the index lists every essay and every part", () => {
   assert.equal((home.match(/class="group"/g) || []).length, 6, "six parts, one group each");
-  for (const n of numbers) assert.match(home, new RegExp(`<span class="for">#${n}</span>`), `#${n}`);
+  for (const n of numbers) assert.match(home, new RegExp(`<span class="n">#${n}</span>`), `#${n}`);
 });
 
 test("no VitePress attribute syntax leaks into a page", () => {

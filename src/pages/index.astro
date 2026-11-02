@@ -1,8 +1,9 @@
 ---
-/* The index, built as the home page (https://abap2ui5.github.io/) is: the
- * title with the logo beside it, then one group per part - its name as the
- * small uppercase heading, its essays as tiles. The classes and the rules
- * are the home page's (.hello, .welcome, .group, .tiles, .tile). */
+/* The index: the title as the home page (https://abap2ui5.github.io/) sets
+ * it, the axis everything turns on, then one group per part - its name as
+ * the home page's small uppercase heading, its line, and its essays as a
+ * list: number, title, blurb. One column at the measure of an essay, so the
+ * index and an essay share one left edge and one width. */
 import Page from "../layouts/Page.astro";
 import { getCollection } from "astro:content";
 import { PARTS } from "../lib/parts";
@@ -10,30 +11,53 @@ import { PARTS } from "../lib/parts";
 const base = import.meta.env.BASE_URL;
 const essays = (await getCollection("essays")).sort((a, b) => a.data.number - b.data.number);
 const count = essays.length;
+/* the axis everything turns on: three ways to put a UI5 screen in front of a
+ * user, by the moment the view is fixed - HTML, so it stacks on a phone and
+ * follows the reader's colour scheme */
+const AXIS = [
+  { name: "UI5 Freestyle", when: "build time", what: "a file in a frontend project" },
+  { name: "RAP / Fiori Elements", when: "activation time", what: "UI annotations on CDS" },
+  { name: "abap2UI5", when: "request time", what: "a string from an ABAP class", hit: true },
+];
 const description = `The ideas behind abap2UI5 in ${count} short technical essays: what it rests on, how it works under the app, a working day with it, where it belongs in the landscape and what running it takes.`;
 ---
-<Page title={`abap2UI5 Insights — ${count} essays on one idea`} description={description} trail={[{ text: "Insights" }]}>
+<Page title={`abap2UI5 Insights — ${count} essays on one idea`} description={description} trail={[{ text: "Insights" }]} measure="article">
   <div class="hello">
     <div class="hello-text">
       <h1 class="welcome">Insights</h1>
       <p class="hello-lead">What happens when the ABAP server sends the <em>screen</em> instead of only the data — in {count} short essays.</p>
     </div>
-    <img class="hello-logo" src={`${base}logo.png`} alt="" width="104" height="104">
   </div>
+  <figure class="axis">
+    <div class="axis-card">
+      <p class="axis-head">When the view is fixed</p>
+      <ol class="axis-cols">
+        {AXIS.map((a) => (
+          <li class={a.hit ? "hit" : undefined}>
+            <span class="axis-name">{a.name}</span>
+            <span class="axis-when">{a.when}</span>
+            <span class="axis-what">{a.what}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <figcaption>One axis: when the definition of the screen stops being changeable.</figcaption>
+  </figure>
   {PARTS.map((part, i) => (
     <section class="group" id={part.id}>
       <h2>Part {i + 1} · {part.title}</h2>
-      <ul class="tiles">
+      <p class="group-lead">{part.lead}</p>
+      <ol class="essays">
         {essays.filter((e) => e.data.part === part.id).map((e) => (
           <li>
-            <a class="tile inside" href={`${base}${e.id}/`}>
-              <span class="for">#{e.data.number}</span>
-              <strong>{e.data.title}</strong>
-              <span class="text">{e.data.blurb.charAt(0).toUpperCase() + e.data.blurb.slice(1)}.</span>
+            <a href={`${base}${e.id}/`}>
+              <span class="n">#{e.data.number}</span>
+              <span class="t">{e.data.title}</span>
+              <span class="d">{e.data.blurb}</span>
             </a>
           </li>
         ))}
-      </ul>
+      </ol>
     </section>
   ))}
 </Page>

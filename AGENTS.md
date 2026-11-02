@@ -18,7 +18,7 @@ keeps a redirect stub for every old address and one sidebar row leading here.
 | `src/content/essays/NN-slug.md` | One essay per file. Frontmatter: `title` (without the number), `number` (the place in reading order, = `NN`), `part`, `blurb` (the line in the index), optional `description` (meta) |
 | `src/lib/parts.ts` | The parts (id, title, lead) |
 | `src/lib/moved.ts` | Slugs of an earlier numbering and the essay each now is; each gets a page that refreshes to the new address |
-| `src/pages/index.astro` | The index, built as the home page: the title with the logo, then one group per part with its essays as tiles (`.hello`, `.group`, `.tiles`, `.tile` - the home page's classes and rules) |
+| `src/pages/index.astro` | The index, built as the home page: the title, the axis figure (HTML), then one group per part - the home page's heading, the part's line, its essays as a list - one column at the essay measure |
 | `src/pages/[slug].astro` | The route for an essay (`src/components/Essay.astro`: its part, reading time, the other essays of the part, previous/next) and for a moved address (`src/components/Moved.astro`) |
 | `src/pages/rss.xml.ts` | The feed, in reading order |
 | `src/pages/search.json.ts` | What the family's search finds of this site: one entry per essay (title, line, headings, rarer words). abap2UI5/docs fetches it at build time into the one search index the home page and the playground read; the shape `{ site, url, entries: [{ title, text, headings, terms, url }] }` is the same on every site of the family |
