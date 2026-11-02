@@ -119,14 +119,12 @@ code, pre, kbd { font-family: var(--mono); }
   .sites [aria-current="page"] { flex: 0 1 auto; min-width: 0; max-width: none; }
 }
 
-/* ---- the foot: one muted line (CONVENTION §5) --------------------------- */
-.foot {
-  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
-  padding-top: 20px; padding-bottom: 28px; margin-top: 64px;
-  color: var(--muted); font-size: 14px; /* no rule above it, as on the sister sites */
-}
+/* ---- the foot: the home page's, exactly - "MIT licensed · About" ------- */
+main.wrap { padding-bottom: 32px; }
+.foot { margin-top: 8px; padding-bottom: 12px; color: var(--muted); font-size: 13px; }
+.foot-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 8px; }
 .foot a { color: var(--muted); text-decoration: none; }
-.foot a:hover { color: var(--brand); text-decoration: underline; }
+.foot a:hover { color: var(--brand); }
 
 /* ---- the index ------------------------------------------------------------ */
 /* One column at the measure of an essay: the index and an essay share one
