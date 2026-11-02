@@ -1,85 +1,39 @@
 ---
-/* The index: what the series is, the one axis everything turns on, and the
- * essays by part, in reading order - nothing else. One column at the measure
- * of an essay, so the index and an essay share one left edge and one width. */
+/* The index, built as the home page (https://abap2ui5.github.io/) is: the
+ * title with the logo beside it, then one group per part - its name as the
+ * small uppercase heading, its essays as tiles. The classes and the rules
+ * are the home page's (.hello, .welcome, .group, .tiles, .tile). */
 import Page from "../layouts/Page.astro";
 import { getCollection } from "astro:content";
 import { PARTS } from "../lib/parts";
 
 const base = import.meta.env.BASE_URL;
 const essays = (await getCollection("essays")).sort((a, b) => a.data.number - b.data.number);
-const href = (e: (typeof essays)[number]) => `${base}${e.id}/`;
 const count = essays.length;
 const description = `The ideas behind abap2UI5 in ${count} short technical essays: what it rests on, how it works under the app, a working day with it, where it belongs in the landscape and what running it takes.`;
-/* the axis: three ways to put a UI5 screen in front of a user, by the moment
- * the view is fixed - HTML rather than a picture, so it reflows on a phone
- * and follows the reader's colour scheme */
-const AXIS = [
-  { name: "UI5 Freestyle", when: "build time", what: "a file in a frontend project" },
-  { name: "RAP / Fiori Elements", when: "activation time", what: "UI annotations on CDS" },
-  { name: "abap2UI5", when: "request time", what: "a string from an ABAP class", hit: true },
-];
 ---
 <Page title={`abap2UI5 Insights — ${count} essays on one idea`} description={description} trail={[{ text: "Insights" }]}>
-  <section class="hero">
-    <h1>Insights</h1>
-    <p class="lead">What happens when the ABAP server sends the <em>screen</em> instead of only the data.</p>
-    <p>
-      {count} short essays, each making a single claim and showing it in code wherever code can show it. Read one on its
-      own and it stands. Read them in order and the parts add up to the whole picture — what the
-      framework rests on, how it works under the app, what a working day with it looks like,
-      where it belongs in the landscape and what running it takes. They are the “why it works like
-      this” for a developer and an architect.
-    </p>
-    <p>
-      There is a good chance you will also pick up a few things about ABAP along the way. RTTS, the
-      dialog step, <code>ENQUEUE</code>, the selection screen, the ICF node, the launchpad: this
-      framework did not invent much, it just moved a lot of familiar furniture into a browser.
-    </p>
-  </section>
-
-  <figure class="axis">
-    <div class="axis-card">
-      <p class="axis-head">When the view is fixed</p>
-      <ol class="axis-cols">
-        {AXIS.map((a) => (
-          <li class={a.hit ? "hit" : undefined}>
-            <span class="axis-name">{a.name}</span>
-            <span class="axis-when">{a.when}</span>
-            <span class="axis-what">{a.what}</span>
+  <div class="hello">
+    <div class="hello-text">
+      <h1 class="welcome">Insights</h1>
+      <p class="hello-lead">What happens when the ABAP server sends the <em>screen</em> instead of only the data — in {count} short essays.</p>
+    </div>
+    <img class="hello-logo" src={`${base}logo.png`} alt="" width="104" height="104">
+  </div>
+  {PARTS.map((part, i) => (
+    <section class="group" id={part.id}>
+      <h2>Part {i + 1} · {part.title}</h2>
+      <ul class="tiles">
+        {essays.filter((e) => e.data.part === part.id).map((e) => (
+          <li>
+            <a class="tile inside" href={`${base}${e.id}/`}>
+              <span class="for">#{e.data.number}</span>
+              <strong>{e.data.title}</strong>
+              <span class="text">{e.data.blurb.charAt(0).toUpperCase() + e.data.blurb.slice(1)}.</span>
+            </a>
           </li>
         ))}
-      </ol>
-    </div>
-    <figcaption>One axis: when the definition of the screen stops being changeable.</figcaption>
-  </figure>
-  <p class="after-axis">
-    Three ways to put a UI5 screen in front of a user on an ABAP stack, all three rendering in the
-    browser with the same controls. They differ in one thing: when the view is fixed. In abap2UI5 it
-    is a string an ABAP class produces for this request — and the next request may answer
-    differently. Everything else follows from that.
-  </p>
-
-  <section class="parts" aria-label="The essays, in reading order">
-    {PARTS.map((part, i) => (
-      <section class="part" id={part.id}>
-        <header>
-          <span class="part-no">Part {i + 1}</span>
-          <h2>{part.title}</h2>
-          <p class="lead">{part.lead}</p>
-        </header>
-        <ol class="essays">
-          {essays.filter((e) => e.data.part === part.id).map((e) => (
-            <li>
-              <a href={href(e)}>
-                <span class="n">#{e.data.number}</span>
-                <span class="t">{e.data.title}</span>
-                <span class="d">{e.data.blurb}</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </section>
-    ))}
-  </section>
+      </ul>
+    </section>
+  ))}
 </Page>
