@@ -35,6 +35,7 @@
   --card: #ffffff;
   --code-bg: #f6f7f9;
   --radius: 12px;
+  --shadow: 0 1px 2px #0f172a0f, 0 8px 24px #0f172a0f;
   --width: 1100px;
   --measure: 680px; /* the home page's text column (.prose > * there) */
   --font: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -60,6 +61,7 @@
     --bg-alt: #131a29;
     --card: #172033;
     --code-bg: #131a29;
+    --shadow: 0 1px 2px #0000004d, 0 8px 24px #00000040;
     --tok-keyword: #f08ea0;
     --tok-string: #7fd6a4;
     --tok-comment: #8a94a6;
@@ -117,45 +119,41 @@ main.wrap { padding-bottom: 32px; }
 .foot a { color: var(--muted); text-decoration: none; }
 .foot a:hover { color: var(--brand); }
 
-/* ---- the index ------------------------------------------------------------ */
-/* One column at the measure of an essay: the index and an essay share one
- * left edge and one width. The heading stands where the sister sites put
- * theirs: 28px under the bar (24px on a phone), line height 1.15 */
-.measure-index > * { max-width: var(--measure); }
-.hero { padding: 28px 0 0; }
-.hero p:last-child { margin-bottom: 0; }
-.hero h1 { margin: 0 0 16px; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; }
-.hero p { margin: 0 0 14px; font-size: 17px; line-height: 1.6; }
-.hero p.lead { color: var(--ink); }
-@media (max-width: 620px) { .hero { padding-top: 24px; } .hero p { font-size: 16px; } }
-
-/* the axis, in HTML: three columns side by side, stacked on a phone */
-.axis { margin: 28px 0 0; }
-.axis-card { padding: 22px 24px 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-alt); }
-.axis-head { margin: 0 0 16px; color: var(--ink); font-size: 13.5px; font-weight: 700; }
-.axis-cols { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.axis-cols li { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
-.axis-name { align-self: stretch; padding: 12px 8px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--card); color: var(--ink); font-size: 14.5px; font-weight: 500; }
-.axis-when { margin-top: 8px; color: var(--ink); font-size: 14px; font-weight: 700; }
-.axis-what { color: var(--muted); font-size: 13px; line-height: 1.4; }
-.axis-cols .hit .axis-name { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-strong); font-weight: 650; }
-.axis-cols .hit .axis-when { color: var(--brand-strong); }
-.axis figcaption { margin-top: 10px; text-align: center; color: var(--muted); font-size: 14px; }
+/* ---- the index: the home page's, rule for rule -------------------------- */
+/* the title with the logo beside it, then a group per part with its essays
+ * as tiles - .hello, .welcome, .group, .tiles and .tile are the classes and
+ * the rules of https://abap2ui5.github.io/ */
+.hello { display: flex; align-items: center; gap: 24px; margin: 28px 0 40px; }
+.hello-text { flex: auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; min-width: 0; }
+.welcome { margin: 0; color: var(--ink); font-size: clamp(28px, 4vw, 40px); font-weight: 700; line-height: 1.15; letter-spacing: -.025em; }
+.hello-lead { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.6; }
+.hello-logo { flex: none; align-self: flex-start; width: 104px; height: 104px; }
 @media (max-width: 620px) {
-  .axis-card { padding: 18px 16px 14px; }
-  .axis-cols { grid-template-columns: 1fr; gap: 14px; }
-  .axis-cols li { display: grid; grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr); column-gap: 14px; row-gap: 2px; align-items: center; text-align: left; }
-  .axis-name { grid-row: span 2; text-align: center; }
-  .axis-when { margin-top: 0; }
+  .hello { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 16px; margin: 24px 0 28px; }
+  .hello-text { display: contents; }
+  .welcome { grid-area: 1 / 1; }
+  .hello-lead { grid-column: 1 / -1; }
+  .hello-logo { grid-area: 1 / 2; align-self: center; width: 64px; height: 64px; }
 }
+.group { margin: 0 0 36px; }
+.group h2 { margin: 0 0 12px; color: var(--muted); font-size: 13px; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.tiles li { min-width: 0; }
+.tile {
+  position: relative; display: grid; align-content: start; gap: 4px; height: 100%;
+  padding: 14px 40px 14px 16px; border: 1px solid var(--line); border-radius: 12px;
+  background: var(--card); color: var(--text); text-decoration: none;
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.tile::after { content: "→"; position: absolute; top: 12px; right: 14px; color: var(--muted); font-size: 16px; opacity: .6; transition: color .15s, opacity .15s, transform .15s; }
+.tile:hover { color: var(--text); border-color: var(--brand); box-shadow: var(--shadow); transform: translateY(-2px); }
+.tile:focus-visible { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-soft); outline: none; }
+.tile:hover::after, .tile:focus-visible::after { color: var(--brand); opacity: 1; transform: translate(3px); }
+.tile strong { color: var(--ink); font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+.tile .for { color: var(--brand); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.tile .text { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; color: var(--muted); font-size: 14px; line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) { .tile, .tile::after { transition: none; } .tile:hover { transform: none; } }
 
-.after-axis { margin: 16px 0 0; }
-.parts { margin: 56px 0 0; }
-.part { margin: 0 0 48px; }
-.part header { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; margin-bottom: 16px; }
-.part .part-no { color: var(--muted); font-size: 12.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
-.part h2 { margin: 0; font-size: 22px; }
-.part .lead { margin: 0; color: var(--muted); }
 /* an essay in a list: the number in its own column, the title, the line
  * under it - two lines at the measure rather than three columns */
 .essays { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
