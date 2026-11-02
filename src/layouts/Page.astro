@@ -18,16 +18,13 @@ interface Props {
   trail: Crumb[];
   /* an <article> gets the narrow measure, the index the wide one */
   measure?: "article" | "index";
-  /* the GitHub path of the source, for "Edit this page" */
-  edit?: string;
   /* an address that moved: the page names the new one and refreshes to it */
   redirect?: string;
 }
-const { title, description, trail, measure = "index", edit, redirect } = Astro.props;
+const { title, description, trail, measure = "index", redirect } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const canonical = new URL(redirect ?? Astro.url.pathname, Astro.site).href;
 const HOME = "https://abap2ui5.github.io/";
-const REPO = "https://github.com/abap2UI5/insights";
 const CSP = [
   "default-src 'self'",
   "script-src 'self'",
@@ -83,9 +80,12 @@ const last = trail.length - 1;
 <main id="main" class={`wrap measure-${measure}`}>
   <slot />
 </main>
-<footer class="foot wrap">
-  <span><a href={HOME}>abap2UI5</a> · MIT licensed · <a href="https://abap2ui5.github.io/docs/">Documentation</a> · <a href={`${base}rss.xml`}>RSS</a>{edit && <> · <a href={`${REPO}/edit/main/${edit}`}>Edit this page</a></>}</span>
-  <a class="mail" href="mailto:contact@abap2UI5.org">contact@abap2UI5.org</a>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row">
+      <span><a href="https://github.com/abap2UI5/abap2UI5/blob/main/LICENSE">MIT licensed</a> · <a href={`${HOME}about/`}>About</a></span>
+    </div>
+  </div>
 </footer>
 </body>
 </html>
