@@ -13,6 +13,10 @@ of the two as a whole is on
 [When to use it, and when not](https://abap2ui5.github.io/why/#when-to-use-it-and-when-not);
 this article is the four technical edges.
 
+![UI5 Freestyle writes the screen in a frontend project, RAP with Fiori elements as annotations, abap2UI5 in the ABAP class - and each sends something different to the browser.](/insights/36-where-the-screen-is-written.svg)
+
+*The same picture as in [#36](/insights/36-rap-or-abap2ui5/): where the screen is written, what travels, and where the state waits.*
+
 **Reach for UI5 Freestyle when the browser has to be smart.** Each of these
 is a consequence of [#7](/insights/07-one-click-one-request/): every
 event is a request to the server, and nothing runs between two of them.

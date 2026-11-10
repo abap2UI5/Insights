@@ -73,6 +73,18 @@ npm run check    # build + test, what CI runs
   checks every SVG for it, and for the attribute without a value that turns
   an SVG into a broken image. On a phone a diagram keeps its size and scrolls
   sideways rather than shrinking its labels.
+- **One vocabulary across the diagrams.** `07-roundtrip.svg` is the reference
+  for a roundtrip - load draft, apply changes, `main( )`, respond, save draft -
+  and every other diagram of a roundtrip is a cut of it that uses its words:
+  *browser* (not "UI5" or "frontend") and *ABAP server*; the request carries
+  the *draft id*, the *event* and the *changes*; the response carries the
+  *view* when one was displayed and the *model* when it changed; the app is
+  an *app instance* and what is kept of it is the *draft*, in `z2ui5_t_01`.
+  The filled red box is what the caption is about - in a comparison, the
+  abap2UI5 side - and never more than one idea per diagram. A label fits its
+  box and the image in a fallback font too: system fonts differ in width, so
+  leave room. `36-where-the-screen-is-written.svg` is the one comparison with
+  UI5 Freestyle and RAP; #36 and #37 both show it.
 - **No script, no inline style.** The policy is `script-src 'self';
   style-src 'self'`: no `<script>`, no `on…=` handler, no `style=""` - the test
   holds every page to it. That is why code is highlighted by Prism (token

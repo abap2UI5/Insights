@@ -39,9 +39,10 @@ the clicks of the last four hours. How that adds up for a given number of
 users is [#40](/insights/40-how-many-users/).
 
 **One request.** Every click is one HTTP roundtrip plus one read and one write
-of the draft. So the cost of a click is the size of the instance plus the size
-of the model — and, as [#11](/insights/11-a-new-instance-on-every-request/)
-warned, those are the same attributes. An app that carries a catalog of ten
+of the draft. So the cost of a click is the size of the instance, every time,
+plus the size of the model whenever a bound value changed — and, as
+[#11](/insights/11-a-new-instance-on-every-request/) warned, those are the
+same attributes. An app that carries a catalog of ten
 thousand rows in an attribute pays for it on every single click, in either
 section. An app that re-reads what it needs pays a `SELECT`, which the database
 was built for and is extremely good at.

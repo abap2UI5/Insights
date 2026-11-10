@@ -11,6 +11,10 @@ but "which one for this screen". The criteria below are the technical ones;
 the comparison of the two as products, with their costs and their reach, is on
 [When to use it, and when not](https://abap2ui5.github.io/why/#when-to-use-it-and-when-not).
 
+![UI5 Freestyle writes the screen in a frontend project, RAP with Fiori elements as annotations, abap2UI5 in the ABAP class - and each sends something different to the browser.](/insights/36-where-the-screen-is-written.svg)
+
+*Where the screen is written, what travels, and where the state waits between two clicks.*
+
 **Behavior or screen.** RAP models the behavior of a business object —
 validations, determinations, authorizations, draft handling — in a place that
 is not a UI, and every consumer of the object gets it. Fiori Elements then

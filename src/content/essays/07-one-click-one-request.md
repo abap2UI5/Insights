@@ -17,6 +17,10 @@ next click starts the same way. Nothing runs between two clicks, because
 nothing is there to run — no timer, no controller, no half-finished promise
 waiting for something.
 
+![One roundtrip: the draft is read, the changes are applied, main( ) runs, the response is built and the draft is written under a new id.](/insights/07-roundtrip.svg)
+
+*One roundtrip, start to end — the five steps every other article in this series zooms into.*
+
 So `main( )` is a dispatcher, and it dispatches on three questions the client
 can answer:
 
