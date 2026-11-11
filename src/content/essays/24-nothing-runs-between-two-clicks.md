@@ -41,16 +41,15 @@ user can watch — and cancel, which the two-minute dialog step never offered.
 for its status on a timer:
 
 ```abap
-    CASE abap_true.
-      WHEN client->check_on_event( `START` ).
-        job_schedule( ).            " remembers job name and count
-        poll( ).
-      WHEN client->check_on_event( `POLL` ).
-        status_read( ).             " TBTCO, or the API of ABAP Cloud
-        IF status <> `F` AND status <> `A`.
-          poll( ).                  " not finished: ask again
-        ENDIF.
-    ENDCASE.
+    IF client->check_on_event( `START` ).
+      job_schedule( ).              " remembers job name and count
+      poll( ).
+    ELSEIF client->check_on_event( `POLL` ).
+      status_read( ).               " TBTCO, or the API of ABAP Cloud
+      IF status <> `F` AND status <> `A`.
+        poll( ).                    " not finished: ask again
+      ENDIF.
+    ENDIF.
 ```
 
 ```abap

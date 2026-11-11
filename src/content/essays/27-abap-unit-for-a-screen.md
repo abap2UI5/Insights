@@ -55,17 +55,16 @@ CLASS zcl_sample_overdue IMPLEMENTATION.
 
     me->client = client.
 
-    CASE abap_true.
-      WHEN client->check_on_init( ).
-        key_date = sy-datum.
-        data_read( ).
-        overdue_calc( ).
-        view_display( ).
-      WHEN client->check_on_navigated( ).
-        view_display( ).
-      WHEN client->check_on_event( `RECALC` ).
-        overdue_calc( ).
-    ENDCASE.
+    IF client->check_on_init( ).
+      key_date = sy-datum.
+      data_read( ).
+      overdue_calc( ).
+      view_display( ).
+    ELSEIF client->check_on_navigated( ).
+      view_display( ).
+    ELSEIF client->check_on_event( `RECALC` ).
+      overdue_calc( ).
+    ENDIF.
 
   ENDMETHOD.
 

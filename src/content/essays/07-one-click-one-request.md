@@ -29,15 +29,14 @@ can answer:
 
     me->client = client.
 
-    CASE abap_true.
-      WHEN client->check_on_init( ).
-        data_read( ).          " once - this instance has never run
-        view_display( ).
-      WHEN client->check_on_navigated( ).
-        view_display( ).       " back from a sub-app or a popup: hand a view back
-      WHEN client->check_on_event( `SAVE` ).
-        on_save( ).            " the model changed - the view stands
-    ENDCASE.
+    IF client->check_on_init( ).
+      data_read( ).            " once - this instance has never run
+      view_display( ).
+    ELSEIF client->check_on_navigated( ).
+      view_display( ).         " back from a sub-app or a popup: hand a view back
+    ELSEIF client->check_on_event( `SAVE` ).
+      on_save( ).              " the model changed - the view stands
+    ENDIF.
 
   ENDMETHOD.
 ```
@@ -51,7 +50,7 @@ one, because two of them are the mistakes everybody makes exactly once.
 
 **Init before navigated.** `check_on_init( )` is true exactly once, on the very
 first call. Every path to a first call raises `check_on_navigated( )` as well,
-so in a `CASE abap_true` the first match wins and the init branch has to stand
+so in the `ELSEIF` chain the first match wins and the init branch has to stand
 first, or the one-time setup never runs.
 
 **A return owes a view.** Coming back from a sub-app or a value help does not

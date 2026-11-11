@@ -37,7 +37,7 @@ waited. What it has to do is show its view again, because the browser is still
 displaying the sub-app's. And it can read what the sub-app left behind:
 
 ```abap
-    WHEN client->check_on_navigated( ).
+    ELSEIF client->check_on_navigated( ).
       TRY.
           DATA(detail) = CAST zcl_sample_detail( client->get_app_prev( ) ).
           message = detail->result.
