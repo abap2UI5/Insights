@@ -85,6 +85,10 @@ npm run check    # build + test, what CI runs
   box and the image in a fallback font too: system fonts differ in width, so
   leave room. `36-where-the-screen-is-written.svg` is the one comparison with
   UI5 Freestyle and RAP; #36 and #37 both show it.
+- **One dispatcher.** `main( )` in an example is the `IF check_on_init( )` /
+  `ELSEIF check_on_navigated( )` / `ELSEIF check_on_event( )` chain, in that
+  order - the form of the framework guide (`docs/agents/building-apps.md` in
+  abap2UI5/abap2UI5) and of the sample repositories. No `CASE abap_true`.
 - **No script, no inline style.** The policy is `script-src 'self';
   style-src 'self'`: no `<script>`, no `on…=` handler, no `style=""` - the test
   holds every page to it. That is why code is highlighted by Prism (token
