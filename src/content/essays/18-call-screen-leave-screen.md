@@ -31,6 +31,10 @@ navigation, no handover, nothing to serialize twice.
     client->nav_app_leave( ).
 ```
 
+![Three states of the stack: the list alone, the detail on top while the list waits as a draft, and the list again after the detail left.](/insights/18-stack.svg)
+
+*Push and pop: the app below does not run while it waits, it is a draft.*
+
 The caller gets `main( )` called again, `check_on_navigated( )` is true, and
 its own attributes are still there — the instance was serialized while it
 waited. What it has to do is show its view again, because the browser is still
@@ -50,6 +54,10 @@ displaying the sub-app's. And it can read what the sub-app left behind:
 Note what that `CAST` implies: the result is not a string in a parameter table,
 it is the sub-app instance itself, with all its typed attributes. Returning a
 whole object from a screen is a luxury `CALL SCREEN` never had.
+
+![The caller sets the question and calls the popup class, the popup displays and leaves, the caller runs again and reads the answer from the popup instance.](/insights/18-popup-return.svg)
+
+*The same mechanism for a popup: its answer is an attribute of the instance the caller gets back.*
 
 `nav_app_leave( )` called *with* an app instance is `LEAVE TO TRANSACTION`:
 it starts the given app without pushing the current one, so there is nothing to

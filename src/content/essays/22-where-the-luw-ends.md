@@ -77,6 +77,10 @@ work in a stateful app is committed at the next `nav_app_call( )` at the
 latest. Which is one more reason the stateful session is the exception it is
 in [#40](/insights/40-how-many-users/).
 
+![Stateless: three roundtrips with nothing but a draft row between them. Stateful: the same three roundtrips inside one session that stays with the user.](/insights/22-stateless-stateful.svg)
+
+*What is on the server between two clicks, in both modes.*
+
 The examples with every write path are on
 [ABAP SQL](https://abap2ui5.github.io/docs/cookbook/eml_cds_sql/abap_sql) and
 [EML](https://abap2ui5.github.io/docs/cookbook/eml_cds_sql/eml).
