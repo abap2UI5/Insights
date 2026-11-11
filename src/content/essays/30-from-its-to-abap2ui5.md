@@ -27,7 +27,10 @@ controls run in the browser; the backend delivers data through OData and stops
 having an opinion about the screen.
 
 **RAP and Fiori Elements, 2019.** The UI definition returns to ABAP as CDS
-annotations, and a runtime in the browser turns them into the app.
+annotations, and a runtime in the browser turns them into the app. Fiori
+Elements had been generating screens from annotations for some years by then;
+2019 is the year RAP reached on-premise systems, after a first release in the
+cloud in 2018, and gave it a programming model.
 
 **abap2UI5, 2023.** The backend sends the XML view itself, and a static UI5 app
 renders it.
