@@ -67,6 +67,10 @@ moment the app stops asking, and an app the user has left polls nothing. The
 third argument keeps the overlay down for the tick, so the screen stays usable
 while the poll runs.
 
+![START schedules the job, a timer in the browser waits three seconds, POLL reads the job status and either re-arms the timer or shows the result.](/insights/24-poll.svg)
+
+*The loop: the job runs in the background, the browser asks, nothing waits in between.*
+
 The job itself runs where batch work always ran, in a background work process,
 with its log in `SM37` and none of the dialog limits. The screen is what it
 was in the GUI: a view on the job, not the job.

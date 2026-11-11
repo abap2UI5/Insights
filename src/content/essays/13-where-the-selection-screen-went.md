@@ -44,6 +44,10 @@ over by reference; the framework builds the model around it, ships it, takes the
 user's input back and puts it where it came from. What the developer maintains
 is a variable, in a class, next to the code that reads it.
 
+![The attribute is bound, appears as a path in the view and the model, the Input shows it, and what the user types travels back into the attribute before main( ) runs.](/insights/13-bound-value.svg)
+
+*One attribute, there and back.*
+
 It is not the same deal as `PARAMETERS`, and pretending otherwise would be
 dishonest — the layout is written by hand here, because the screen is UI5 and
 UI5 has a great deal more to say than a selection screen did. What comes back

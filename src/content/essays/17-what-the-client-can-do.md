@@ -22,6 +22,10 @@ name, because the shape is refreshingly small:
 | ask the browser to do something | `follow_up_action( )` with a `cs_event` constant |
 | know where it runs | `get( )` — device, launchpad, URL parameters, the raw event |
 
+![The main view fills the screen; a nested view is a part of it, a popup lies on top of it, a popover sits beside one control.](/insights/17-view-slots.svg)
+
+*The four places the first row of the table fills.*
+
 That is a framework you can hold in your head. A design goal, not an accident.
 
 The two rows that carry the most weight are the smallest. `_bind( )` takes an
