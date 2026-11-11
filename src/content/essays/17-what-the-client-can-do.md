@@ -50,7 +50,7 @@ Both are string generators, and that is all they are. Nothing is registered,
 nothing is declared: the attribute name and the event name are written into the
 view, and read back out of the request.
 
-The last row is the escape hatch for everything that is a browser matter rather
+The last row covers everything that is a browser matter rather
 than an ABAP matter — focus a field, scroll, copy to the clipboard, download a
 file, set the tab title, raise the model size limit. Each is a constant in
 `cs_event`, and each is one call:

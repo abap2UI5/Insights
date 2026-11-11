@@ -21,6 +21,11 @@ const nextPart = next && next.data.part !== entry.data.part ? partById(next.data
 const words = (entry.body ?? "").split(/\s+/).filter(Boolean).length;
 const minutes = Math.max(2, Math.round(words / 220));
 const title = `#${entry.data.number} ${entry.data.title}`;
+// The line under the title says what the essay teaches: the description, a
+// full sentence, where there is one. The blurb is the index's short line and
+// stays the fallback.
+const blurb = entry.data.blurb.charAt(0).toUpperCase() + entry.data.blurb.slice(1);
+const standfirst = entry.data.description ?? `${blurb}.`;
 ---
 <Page
   title={`${title} — abap2UI5 Insights`}
@@ -32,7 +37,7 @@ const title = `#${entry.data.number} ${entry.data.title}`;
     <header>
       <a class="part-link" href={`${base}#${part.id}`}>Part {partIndex} · {part.title}</a>
       <h1><span class="num">#{entry.data.number}</span>{entry.data.title}</h1>
-      <p class="standfirst">{entry.data.blurb.charAt(0).toUpperCase() + entry.data.blurb.slice(1)}.</p>
+      <p class="standfirst">{standfirst}</p>
       <p class="reading">{minutes} min read · {entry.data.number} of {essays.length}</p>
     </header>
     <div class="prose">

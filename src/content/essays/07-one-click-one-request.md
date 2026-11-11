@@ -10,7 +10,8 @@ The mental model that everything else in the framework rests on fits in one
 sentence: **every click is one HTTP request, and every request is one call to
 `main( )` on a fresh instance.**
 
-That is PBO and PAI with the names filed off. A request arrives carrying the
+That is the dynpro's PBO (Process Before Output: build the screen) and PAI
+(Process After Input: react to the user) under other names. A request arrives carrying the
 event and what the user changed. `main( )` runs, decides what happens, and
 returns. Whatever it built travels back, the work process is released, and the
 next click starts the same way. Nothing runs between two clicks, because

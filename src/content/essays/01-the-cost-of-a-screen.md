@@ -107,6 +107,12 @@ Activate it, call the ICF endpoint with `?app_start=zcl_sample_job_monitor`,
 and it is on screen, laid out by the UI5 controls it names, on a phone as well
 as on a desktop.
 
+The view is written with four methods, and they are all there is: `ele` opens
+a UI5 control and moves into it, `tag` adds a control without moving into it,
+`a` sets a property on the control just added, and `end` moves back up one
+level — [#14](/insights/14-four-verbs-every-control/). `{JOB}` is a UI5 binding
+path: the column `JOB` of the table the control is bound to.
+
 Three things in the class carry the whole mechanism, and the rest of the
 series takes them apart one at a time. `z2ui5_if_app` is the one interface
 the framework asks for, with one method — [#3](/insights/03-one-class-no-programming-model/).

@@ -16,8 +16,11 @@ still exist?
 `z2ui5_if_app` inherits `if_serializable_object`, and that one line is the
 answer. After each request the framework serializes the app instance into
 `z2ui5_t_01` — one generic table for every app, not a typed draft table per
-data model — and reads it back on the next one. The browser gets a draft id,
-and sends the draft id back. The state itself never leaves the server.
+data model — and reads it back on the next one. The framework
+calls this saved copy of the instance the *draft*. It is not a RAP draft: it
+holds no business data model, only the serialized app object. The browser gets
+a draft id, and sends the draft id back. The state itself never leaves the
+server.
 
 ![Every request is a new instance; z2ui5_t_01 is what carries the last one forward.](/insights/11-draft.svg)
 

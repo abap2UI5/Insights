@@ -22,7 +22,9 @@ abap2UI5 adds nothing to it and takes nothing away.
 app is one class, `main( )` is its entry, and the branch that shows the first
 view is where an ordinary `AUTHORITY-CHECK` goes — before anything is selected
 and before anything is displayed. When it fails, the user gets a message
-instead of a view:
+instead of a view. `check_on_navigated( )` is also true on the very first call
+([#7](/insights/07-one-click-one-request/)), so this one branch covers the start
+of the app and every return to it:
 
 ```abap
   METHOD z2ui5_if_app~main.

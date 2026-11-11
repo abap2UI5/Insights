@@ -23,8 +23,7 @@ maintenance slots, its change freeze in December.
 the S/4 system remotely — released OData, RFC or SOAP services. Everything on
 the BTP side is Level A by construction — the levels are
 [#33](/insights/33-when-the-api-is-not-released/) — and it works
-against S/4HANA Public Cloud, where on-stack custom code is not an option at
-all.
+against every S/4 edition, S/4HANA Public Cloud included.
 
 ![The apps run on the SAP BTP ABAP Environment and call released remote APIs of S/4HANA](/insights/use_cases/side_by_side_level_a.svg)
 
