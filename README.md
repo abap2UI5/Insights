@@ -28,7 +28,7 @@ npm run check     # build + tests, what CI runs
 
 | | |
 |---|---|
-| `src/content/essays/NN-slug.md` | the essays - one file each, the frontmatter carries title, number, reading order, part, the one-line blurb and the meta description |
+| `src/content/essays/NN-slug.md` | the essays - one file each, the frontmatter carries title, number (the place in reading order), part, the one-line blurb and the optional meta description |
 | `src/lib/parts.ts` | the parts, in one place |
 | `src/pages/index.astro` | the index |
 | `src/pages/[slug].astro` | an essay, with the other essays of its part and previous/next; also the old addresses in `src/lib/moved.ts` |
