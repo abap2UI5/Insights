@@ -37,6 +37,10 @@ productive system should change it. The choices, and what each one decides:
 | The system's own UI5 | the SAP system only | your SAP licence | Basis, with the UI5 component of the system |
 | In the launchpad | the launchpad | your SAP licence | the launchpad |
 
+![One string in the exit class, cs_config-src, selects where the browser loads UI5 from: the CDN in its latest release, the CDN with a version in the path, or the system's own UI5; in the launchpad, the launchpad loads it.](/insights/39-ui5-source.svg)
+
+*One string decides the source; in the launchpad, the launchpad decides.*
+
 ## The Choices in Detail
 
 **OpenUI5 or SAPUI5.** OpenUI5 is the open-source subset and carries what most

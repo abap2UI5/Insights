@@ -34,7 +34,7 @@ Between classes the framework keeps the stack:
     client->nav_app_leave( ).
 ```
 
-![Three states of the stack: the list alone, the detail on top while the list waits as a draft, and the list again after the detail left.](/insights/18-stack.svg)
+![Three states of the stack: the list alone, the detail on top while the list waits as an app draft, and the list again after the detail left.](/insights/18-stack.svg)
 
 *Push and pop: the app below does not run while it waits, it is a draft.*
 

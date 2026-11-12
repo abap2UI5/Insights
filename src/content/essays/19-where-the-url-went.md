@@ -22,6 +22,10 @@ default or one of three modes:
 | Hash routing | `cs_event-hash_routing` | same screen | returns to the calling app | same screen, or a fresh app in mode `fresh` |
 | App-owned hash | `hash_set( )` | the app reads its hash | raises an event in the app | the app reads its hash |
 
+![The four URL modes - default, app state, hash routing, app-owned hash - and what reload, the Back button and a bookmark do in each.](/insights/19-url-modes.svg)
+
+*One mode per app: what reload, Back and a bookmark do in each.*
+
 An app picks only one of the three modes, because each uses the whole hash of
 the URL.
 
