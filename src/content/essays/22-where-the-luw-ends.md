@@ -61,17 +61,11 @@ commits, as in [#3](/insights/03-one-class-no-programming-model/). EML
 transaction, so the business object's save sequence starts on the app's
 command ([#36](/insights/36-rap-or-abap2ui5/)).
 
-**A failed roundtrip is rolled back too.** An exception that leaves `main( )`
-is caught once, in the framework's handler, and the LUW is rolled back before
-the HTTP 500 goes out — the same outcome a short dump had, and the overlay the
-user sees is the one from [#21](/insights/21-message-still-works/). That
+**A failed roundtrip is rolled back too.** An exception that leaves `main( )` is caught once, in the framework's handler, and the LUW is rolled back before the HTTP 500 goes out. That is the same outcome a short dump had. The overlay the user sees is the one from [#21](/insights/21-message-still-works/). That
 rollback matters: the end of the HTTP request commits implicitly, and without
 it a write made just before the raise would land after all.
 
-**Every roundtrip is its own LUW.** Nothing written in one click is still open
-in the next, so a change that spans two screens — a header on the first, items
-on the second — is either collected in attributes and written in one go, or
-written per screen with a status that says it is not finished. That is the
+**Every roundtrip is its own LUW.** Nothing written in one click is still open in the next. Take a change that spans two screens, a header on the first and items on the second. It is either collected in attributes and written in one go, or written per screen with a status that says it is not finished. That is the
 same decision a stateless web application makes everywhere, and the same one
 [#23](/insights/23-the-lock-is-gone-by-the-next-click/) makes for locks.
 

@@ -7,10 +7,7 @@ description: "The threat model of an abap2UI5 app - what the browser chooses (th
 ---
 
 Every roundtrip is a POST the browser assembles, and the framework trusts
-nothing in it that it cannot verify. This is the list of what the browser
-chooses, what the framework checks on each item, and what is left to the app —
-the page a security review starts from, with the setting that decides each
-item named.
+nothing in it that it cannot verify. This is the list of what the browser chooses, what the framework checks on each item, and what is left to the app. A security review can start from this page: it names the setting that decides each item.
 
 | What the browser sends | What the framework checks | What the app must do |
 |---|---|---|
@@ -54,9 +51,7 @@ else's.
 so `get_event( )` returns whatever the browser sent. The event of a button can
 arrive even when the view did not render the button, or rendered it disabled.
 A handler that must not run for a given state checks the state, not
-the button. The same holds for the model: every attribute the view binds with
-`_bind( )` is a path the browser may send a value for, and the framework
-writes what arrives into the attribute, a `Text` as much as an `Input`. A
+the button. The same holds for the model. Every attribute the view binds with `_bind( )` is a path the browser may send a value for. The framework writes what arrives into the attribute, for a `Text` as much as for an `Input`. A
 value that must not change on the way through the browser — a key, a price,
 a user name — is not bound, or is re-read on the server before it is used.
 
@@ -66,10 +61,7 @@ other value. An app that shows one sales order checks that the user may see
 *that* order, not only that they may run the app
 ([Startup parameters are user input](https://abap2ui5.github.io/docs/configuration/authorization#startup-parameters-are-user-input)).
 
-**The headers.** The CSRF check (it refuses a request that another website
-sends in the name of a logged-on user) compares the host of the `Origin` header — or
-`Referer`, when there is no `Origin` — against the request's `Host`, and a
-cross-origin POST is rejected before any app logic runs. It is on by default
+**The headers.** The CSRF check refuses a request that another website sends in the name of a logged-on user. It compares the host of the `Origin` header, or of `Referer` when there is no `Origin`, against the request's `Host`. A cross-origin POST is rejected before any app logic runs. It is on by default
 (`check_csrf_active`), and it is lenient by design about a request that carries
 neither header. Behind a reverse proxy or a web dispatcher the host the
 browser saw is the first `X-Forwarded-Host`, so that header is trusted by

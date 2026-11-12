@@ -9,10 +9,7 @@ description: "What is missing from change, activate, refresh - no frontend build
 The loop is: change the class, activate, refresh the browser.
 
 This article is about what is *missing* from that sentence, starting with the
-first page. Somebody has to deliver the initial HTML. In the SAP world that
-normally means a BSP application: a frontend artifact that is built somewhere,
-deployed to the ABAP stack, transported on its own path, and removed from its
-own caches when it changes.
+first page. Somebody has to deliver the initial HTML. In the SAP world that normally means a BSP application. It is a frontend artifact that is built somewhere, deployed to the ABAP stack and transported on its own path. When it changes, it has to be removed from its own caches.
 
 abap2UI5 needs no BSP when it is started through its own ICF service, which is
 the normal installation. The initial GET is answered from ABAP source code:

@@ -69,8 +69,6 @@ and a wrapper keeps an unreleased API in one named place.
 
 *The levels are SAP's, from the
 [Clean Core Extensibility white paper](https://community.sap.com/t5/technology-blog-posts-by-sap/why-clean-core-matters-get-some-insights-into-our-brand-new-extensibility/ba-p/14163750)
-of August 2025; the
-[ABAP Extensibility Guide](https://community.sap.com/t5/technology-blog-posts-by-sap/abap-extensibility-guide-clean-core-for-sap-s-4hana-cloud-august-2025/ba-p/14175399)
-carries the technical rules behind each one, and
-[Clean Core maturity and the new extensibility levels](https://community.sap.com/t5/technology-blog-posts-by-sap/clean-core-maturity-and-the-new-extensibility-levels/ba-p/14293974)
+of August 2025. The [ABAP Extensibility Guide](https://community.sap.com/t5/technology-blog-posts-by-sap/abap-extensibility-guide-clean-core-for-sap-s-4hana-cloud-august-2025/ba-p/14175399)
+carries the technical rules behind each one. [Clean Core maturity and the new extensibility levels](https://community.sap.com/t5/technology-blog-posts-by-sap/clean-core-maturity-and-the-new-extensibility-levels/ba-p/14293974)
 covers grading code that already exists.*

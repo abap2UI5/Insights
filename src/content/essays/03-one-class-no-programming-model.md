@@ -6,9 +6,7 @@ blurb: "every API the system has, from BAPI to EML, behind one unchanged UI clas
 description: "The one interface an abap2UI5 app implements, and why three save handlers - EML, a MODIFY, a BAPI - sit behind one unchanged UI class."
 ---
 
-To use a framework, you always have to fulfill certain requirements: these can
-be a structure to follow, a lifecycle to fit into, layers to fill in — most of
-them in place before anything reaches a screen.
+To use a framework, you always have to fulfill certain requirements. These can be a structure to follow, a lifecycle to fit into, or layers to fill in. Most of them have to be in place before anything reaches a screen.
 
 Here is the whole list for abap2UI5. You write an ABAP class — the way you used
 to start a report with a selection screen — and implement one interface with
@@ -200,9 +198,7 @@ one that waits for a modeling exercise.
 ## Conclusion
 
 Where a strict programming model fits, use it — picking one deliberately is
-good engineering. abap2UI5 asks for nothing beyond the signature of `main( )`,
-so it fits the rest: the system not on the newest release, the logic that does
-not match the shape a model has in mind, and the screen from
+good engineering. abap2UI5 asks for nothing beyond the signature of `main( )`, so it fits the rest. That is the system not on the newest release, the logic that does not match the shape a model has in mind, and the screen from
 [#1](/insights/01-the-cost-of-a-screen/) whose whole
 backend is one class. Where it sits next to RAP is
 [#36](/insights/36-rap-or-abap2ui5/).

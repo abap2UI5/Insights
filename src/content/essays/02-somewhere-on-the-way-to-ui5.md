@@ -117,9 +117,7 @@ A table nobody described, drawn from whatever the data turned out to be —
 [se16n addon](https://github.com/abap2UI5-addons/se16n), a full SE16-flavored
 app built on exactly this.
 
-Nothing in either half is exotic, which is what makes it cheap to hand over:
-the frontend is a freestyle UI5 app with `sap.m` controls and a `JSONModel`,
-and the backend is a global ABAP class in a package, traveling in a transport.
+Nothing in either half is exotic, and that makes it cheap to hand over. The frontend is a freestyle UI5 app with `sap.m` controls and a `JSONModel`. The backend is a global ABAP class in a package, traveling in a transport.
 
 ## What It Costs
 

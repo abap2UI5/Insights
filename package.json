@@ -14,7 +14,8 @@
     "preview": "astro preview",
     "migrate": "node scripts/migrate.mjs",
     "test": "node --test test/*.test.mjs",
-    "check": "npm run build && npm test"
+    "check": "npm run build && npm test",
+    "report:sentences": "node scripts/report-sentences.mjs"
   },
   "devDependencies": {
     "astro": "7.3.8",

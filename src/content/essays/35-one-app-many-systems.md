@@ -48,9 +48,7 @@ Which S/4 system a request is about is therefore a value the app holds. It is
 an attribute of the instance, set when the user chose the system or when the
 launchpad parameter named it (`client->get( )-t_comp_params`, which is
 [user input](https://abap2ui5.github.io/docs/configuration/authorization#startup-parameters-are-user-input)).
-That attribute behaves like every other one: it is serialized with the
-instance, it travels to the browser if it is bound, and `nav_app_call( )`
-passes it on only if the caller puts it into the sub-app it constructs.
+That attribute behaves like every other one. It is serialized with the instance, and it travels to the browser if it is bound. `nav_app_call( )` passes it on only if the caller puts it into the sub-app it constructs.
 
 So the check belongs where the remote call is made. Every read and every write
 names the system key from the instance, and the app verifies first that *this*

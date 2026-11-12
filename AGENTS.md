@@ -37,6 +37,7 @@ npm run dev      # dev server, http://localhost:4321/insights/
 npm run build    # dist/
 npm test         # the tests, against dist/ - build first
 npm run check    # build + test, what CI runs
+npm run report:sentences   # sentences over 35 words; a report, not a test
 ```
 
 ## Rules

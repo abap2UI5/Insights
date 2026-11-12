@@ -34,11 +34,7 @@ one. No contract is registered, so none can be violated.
 ## How Much Handler That Is
 
 The communication core of abap2UI5 started as one HTTP handler class, two
-interfaces and one database table. The framework has grown since — most
-visibly the optional view builder — and the part that carries every request is
-now a dozen small classes in the core package (handler, action, binding, model,
-events, draft) behind the same two interfaces and the same one table,
-`z2ui5_t_01`.
+interfaces and one database table. The framework has grown since, most visibly by the optional view builder. The part that carries every request is now a dozen small classes in the core package: handler, action, binding, model, events, draft. They sit behind the same two interfaces and the same one table, `z2ui5_t_01`.
 
 It is small because of what it leaves to the apps. The framework does not build
 views; apps do. It does not decide program flow; apps do. It does not wrap UI5
