@@ -46,9 +46,7 @@ with the edge cases, on [Lock](https://abap2ui5.github.io/docs/cookbook/expert_m
 
 *The lock lives inside one roundtrip; the timestamp guards the minutes between.*
 
-**A soft lock** — a row in a table of your own saying who is editing what,
-with a timestamp that expires — gives the *this order is being edited by
-Müller* warning back, without a work process holding anything. It is advisory,
+**A soft lock** is a row in a table of your own that says who is editing what, with a timestamp that expires. It gives the *this order is being edited by Müller* warning back, without a work process holding anything. It is advisory,
 it can go stale, and users like it anyway.
 
 **And the GUI way still exists.** `client->set_session_stateful( )` pins one

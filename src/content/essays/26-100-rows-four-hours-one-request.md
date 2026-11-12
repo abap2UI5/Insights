@@ -26,10 +26,7 @@ from ABAP:
 
 Raising it is the fix for a table of a thousand rows. It is not the fix for a
 table of fifty thousand: every bound row travels to the browser with the
-response, and back to the database with the draft. A screen with that
-many rows does the paging in ABAP: it reads one page with `SELECT … UP TO n
-ROWS`, uses a growing table or offers a filter bar — the way a selection
-screen always limited the result.
+response, and back to the database with the draft. A screen with that many rows does the paging in ABAP. It reads one page with `SELECT … UP TO n ROWS`, uses a growing table or offers a filter bar, the way a selection screen always limited the result.
 
 **Four hours.** The draft — the framework's saved copy of the app instance
 from [#11](/insights/11-a-new-instance-on-every-request/), not a RAP draft —
@@ -37,10 +34,7 @@ lives in `z2ui5_t_01` until it expires, four hours by default. A user who comes
 back after lunch continues where they were; one who comes back tomorrow starts
 fresh. The number is `draft_exp_time_in_hours` in the exit class
 (`z2ui5_if_ui5_exit`), and this table
-is the one place in the framework that grows. It is also the one that cleans
-itself: on every first start of an app the framework deletes every row older
-than the expiry, one `DELETE` and a `COMMIT WORK`, so the table holds at most
-the clicks of the last four hours. How that adds up for a given number of
+is the one place in the framework that grows. It is also the one that cleans itself. On every first start of an app the framework deletes every row older than the expiry, with one `DELETE` and a `COMMIT WORK`. So the table holds at most the clicks of the last four hours. How that adds up for a given number of
 users is [#40](/insights/40-how-many-users/).
 
 **One request.** Every click is one HTTP roundtrip plus one read and one write

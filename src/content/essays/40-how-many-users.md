@@ -45,10 +45,7 @@ public attributes the view binds. An attribute in the protected section is in
 the draft and not in the model; a bound one is in both
 ([Performance](https://abap2ui5.github.io/docs/configuration/performance)).
 
-**How the table grows.** Rows expire after `draft_exp_time_in_hours`, four
-hours by default, and the framework deletes the expired rows on every first
-start of an app — one `DELETE` on the table's timestamp and a `COMMIT WORK`,
-whichever user starts whichever app. So the table never holds more than the
+**How the table grows.** Rows expire after `draft_exp_time_in_hours`, four hours by default. The framework deletes the expired rows on every first start of an app, whichever user starts whichever app: one `DELETE` on the table's timestamp and a `COMMIT WORK`. So the table never holds more than the
 last four hours of clicks:
 
 ```text
@@ -113,9 +110,7 @@ roundtrip it reports:
 - the sizes of the request, the response and the model, in characters;
 - how long the previous roundtrip took, as the browser measured it.
 
-These are the terms of the formulas above, measured on the installation: the
-roundtrip duration for the number of work processes, the model size for what
-the browser carries, the draft phase for what the table costs. The Admin
+These are the terms of the formulas above, measured on the installation. The roundtrip duration gives the number of work processes, the model size gives what the browser carries, and the draft phase gives what the table costs. The Admin
 Cockpit add-on turns them into p95 times per app (the time that 95 percent of
 the roundtrips stay under).
 

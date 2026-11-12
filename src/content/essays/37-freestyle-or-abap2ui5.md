@@ -41,11 +41,7 @@ cases, and each is a consequence of [#7](/insights/07-one-click-one-request/): e
 event is a request to the server, and nothing runs between two of them.
 
 - **No offline-first app.** Every event asks the server what happens next, and
-  the page itself needs the network to load. What exists is an experimental
-  event queue, `cs_event-offline_queue`: the events it names wait in the
-  browser while the backend cannot be reached, survive a reload, and are sent
-  in order once the network is back — a form that saves later, not an app
-  that works without a server. A warehouse app for a device with no signal is
+  the page itself needs the network to load. What exists is an experimental event queue, `cs_event-offline_queue`. The events it names wait in the browser while the backend cannot be reached, survive a reload, and are sent in order once the network is back. That is a form that saves later, not an app that works without a server. A warehouse app for a device with no signal is
   a different architecture.
 - **Real-time and heavily interactive UIs do not fit.** Drag and drop across a
   board, a canvas, live collaboration: anywhere the important state lives in

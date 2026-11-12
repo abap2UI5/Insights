@@ -103,6 +103,4 @@ The details, with the cases that combine with the launchpad, are on
 [App State](https://abap2ui5.github.io/docs/cookbook/event_navigation/navigation/app_state)
 and [Hash Routing](https://abap2ui5.github.io/docs/cookbook/event_navigation/navigation/hash).
 
-**In short:** by default the URL carries nothing and a reload starts the app
-fresh; app state, hash routing or an app-owned hash put as much of the app
-into the URL as the app chooses.
+**In short:** by default the URL carries nothing and a reload starts the app fresh. App state, hash routing or an app-owned hash put as much of the app into the URL as the app chooses.

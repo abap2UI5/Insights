@@ -65,8 +65,7 @@ tag:
    own.
 6. Re-test (see *What to Re-Test* below).
 
-An installation that is started through its ICF node needs nothing besides
-step 3 for the frontend: the frontend is embedded in the backend classes
+An installation that is started through its ICF node needs nothing besides step 3 for the frontend. The frontend is embedded in the backend classes
 ([#16](/insights/16-no-build-no-deploy-no-cache/)), so the same pull brings
 the new page and the new modules.
 

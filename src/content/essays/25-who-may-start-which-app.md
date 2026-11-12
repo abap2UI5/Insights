@@ -59,9 +59,7 @@ usual in PFCG. Nothing here is new, and that is the point. The check sits in
 the class it protects, so a transport carries the app and its guard together,
 and nothing on the node has to know which classes exist.
 
-It also holds on the way into an app that the URL never names: a
-`nav_app_call( )` from another app arrives as an ordinary roundtrip with no
-`app_start` on it, and the check in `main( )` is the one that runs for it. A
+It also holds on the way into an app that the URL never names. A `nav_app_call( )` from another app arrives as an ordinary roundtrip with no `app_start` on it, and the check in `main( )` is the one that runs for it. A
 guard on the node alone would miss that call. The complete example,
 with the refusal branch and what it should say, is on
 [Authorization](https://abap2ui5.github.io/docs/configuration/authorization).

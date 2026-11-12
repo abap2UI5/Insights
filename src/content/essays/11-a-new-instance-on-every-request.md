@@ -51,10 +51,7 @@ cursor, an acquired lock, a reference to a class that is not serializable. The
 
 One consequence surprises even experienced ABAP developers, because in a
 dialog program the habit was free: every attribute is written to the database
-after every click. A catalog that is read once and kept in an attribute "as a
-cache" is therefore written and read back on every click, whether the
-attribute is public or protected, and it makes every click slower for as long
-as the app runs. No keyword fixes that. Read anything large again per request,
+after every click. So a catalog that is read once and kept in an attribute "as a cache" is written and read back on every click, whether the attribute is public or protected. It makes every click slower for as long as the app runs. No keyword fixes that. Read anything large again per request,
 and keep the instance as small as the screen needs.
 
 The rule pays off. The app feels stateful — PBO, PAI, cancel, back — while
