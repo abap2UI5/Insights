@@ -1,28 +1,29 @@
 ---
-title: "No Annotation in Between"
+title: "Every UI5 Control, No Annotation in Between"
 number: 4
 part: rests
 blurb: "the vocabulary is the UI5 control library, all of it"
 description: "Why the vocabulary of an abap2UI5 view is the UI5 control library itself - every control, at the UI5 version the bootstrap names - shown with a sap.m.Wizard."
 ---
 
-In a metadata-driven UI a screen is described rather than written. The
-description has a vocabulary — line items, selection fields, facets,
-identification — and a generator turns it into UI5 at runtime. Whatever the
-vocabulary covers arrives in an afternoon, and that is genuinely impressive.
-Whatever it does not becomes an extension point, a custom control, or a
-conversation about whether the screen really needs that.
+In a metadata-driven UI such as Fiori Elements, a screen is described rather
+than written. The description has a vocabulary — the UI annotations: line
+items, selection fields, facets, identification — and a generator turns it
+into UI5 at runtime. Whatever the vocabulary covers is built in an afternoon,
+and that is impressive. Whatever it does not cover becomes an extension point,
+a custom control, or a discussion about whether the screen really needs it.
 
-Every ABAP developer who has built a Fiori Elements app knows the exact moment:
-the requirement is small, the vocabulary does not have a word for it, and the
-estimate triples.
+Every ABAP developer who has built a Fiori Elements app knows the moment: the
+requirement is small, the vocabulary has no word for it, and the estimate
+triples.
 
-abap2UI5 has no vocabulary of its own to run out of. What it sends to the
-browser is a UI5 XML view, so the vocabulary is the UI5 control library itself
-— all of it, at the UI5 version the
-[bootstrap](https://abap2ui5.github.io/docs/configuration/setup/ui5_bootstrapping) names, which is a
-configuration decision of the installation rather than a property of the SAP
-release ([#31](/insights/31-one-codebase-702-to-abap-cloud/)).
+abap2UI5 has no vocabulary of its own. What it sends to the browser is a UI5
+XML view, so the vocabulary is the UI5 control library itself: every control,
+at the UI5 version the
+[bootstrap](https://abap2ui5.github.io/docs/configuration/setup/ui5_bootstrapping)
+names. That version is a configuration decision of the installation, not a
+property of the SAP release
+([#31](/insights/31-one-codebase-702-to-abap-cloud/)).
 
 Which is why a control nobody generates is not a special case. Take a
 three-step wizard, a control that is right there in `sap.m` and almost never
@@ -40,7 +41,7 @@ CLASS zcl_sample_onboarding DEFINITION PUBLIC.
 
   PROTECTED SECTION.
     DATA client TYPE REF TO z2ui5_if_client.
-    METHODS set_view.
+    METHODS view_display.
 
   PRIVATE SECTION.
 ENDCLASS.
@@ -53,14 +54,14 @@ CLASS zcl_sample_onboarding IMPLEMENTATION.
     me->client = client.
 
     IF client->check_on_navigated( ).
-      set_view( ).
-    ELSEIF client->get_event( ) = `COMPLETE`.
+      view_display( ).
+    ELSEIF client->check_on_event( `COMPLETE` ).
       client->message_toast_display( |{ name } assigned to { plant }| ).
     ENDIF.
 
   ENDMETHOD.
 
-  METHOD set_view.
+  METHOD view_display.
 
     DATA(view) = z2ui5_cl_ui5_view_builder=>factory(
         )->ele( n = `View` ns = `mvc`
@@ -112,20 +113,22 @@ XML, and the reference for the view is the UI5 SDK. There is no second place to
 look and no mapping to learn, which also means the SDK's own sample page is a
 usable spec for your ABAP class.
 
-Two things follow from that, and they are the actual point of this article.
+Two things follow from that.
 
-Anything the SDK documents is reachable the day the frontend serves it. A
+First, anything the SDK documents is reachable the day the frontend serves it. A
 control added in a newer UI5 release needs no framework release behind it,
 because nothing inside abap2UI5 enumerates controls. Nobody has to wait for a
 wrapper, and nobody has to write one.
 
-And what a developer learns building these screens is UI5 — the same knowledge
-a freestyle app needs, the same one an extension to a generated app needs. It
-outlives whichever ABAP-side framework it was learned through — more than can
-be said for most framework knowledge.
+Second, what a developer learns while building these screens is UI5. A
+freestyle app needs the same knowledge, and so does an extension to a
+generated app. It stays useful whichever ABAP-side framework it was learned
+through.
 
-The price is on the same page, and it is not small. Nothing writes the layout:
-a list report a few annotations would have described is here a table built
-control by control. Reaching every control is not the same as being handed one,
-and [#36](/insights/36-rap-or-abap2ui5/) is about when the generated
-list report is the better deal.
+There is a price, and it is not small: nothing writes the layout for you. A
+list report that a few annotations would have described is here a table built
+control by control. [#36](/insights/36-rap-or-abap2ui5/) (later in the series)
+is about when the generated list report is the better choice.
+
+**In short:** an abap2UI5 view is plain UI5 XML, so every UI5 control is
+available without a wrapper, and the layout is yours to write.

@@ -11,17 +11,19 @@ library. A control nobody has wrapped. A UI5 method that exists only as a
 method — `sap.m.Carousel` moves through `setActivePage( )` and through nothing
 else, and no property will do it for you.
 
-This is the moment where frameworks usually grow a plugin system, and then a
-plugin registry, and then a page of documentation about lifecycle hooks.
-abap2UI5 has none of that, deliberately. It has three seams — three extension points, each one a declared place —
-and they are listed here from the cheapest to the widest.
+At this point frameworks usually add a plugin system, then a plugin registry,
+then documentation about lifecycle hooks. abap2UI5 deliberately has none of
+that. It has three extension points — the picture calls them seams — and each
+is a declared place. They are listed here from the cheapest to the widest.
 
 ![Three seams, from the cheapest to the widest: a method call by control id, an expression in the view, a custom control in its own BSP.](/insights/15-three-seams.svg)
 
 *Three seams, from the cheapest to the widest: a method call by control id, an expression in the view, a custom control in its own BSP.*
 
-**An imperative method needs no JavaScript at all.** The client can call one on
-a control by id:
+## 1. Call a Method of a Control
+
+Some things exist in UI5 only as a method. Calling one needs no JavaScript at
+all. The client calls it on a control by id:
 
 ```abap
     " t_arg is positional: control id, method, parameters
@@ -31,33 +33,41 @@ a control by id:
                                                ( `page2` ) ) ).
 ```
 
-Any public method of the control is reachable, unless the frontend's denylist
-refuses it — `destroy`, the `bind…` and `attach…` families, the generic
-`setAggregation` and its kin. A short list of methods also declares the kind
-of each argument: `setActivePage` is on it, which is why `page2` arrives as the
-page with that id rather than as a string, and an argument beyond what an entry
-declares is dropped in silence — a debugging session you can skip by reading
-that list first.
+Any public method of the control can be called, unless the frontend's
+denylist refuses it: `destroy`, the `bind…` and `attach…` families, the
+generic `setAggregation` and similar methods. A short list of methods also
+declares the kind of each argument. `setActivePage` is on that list, which is
+why `page2` arrives as the page with that id and not as a string. An argument
+beyond what an entry declares is dropped without a message, so read the list
+in [Frontend actions](https://abap2ui5.github.io/docs/cookbook/event_navigation/frontend)
+first.
 
-**A view attribute can compute.** UI5 expression binding is available in an
-app view — `{= ${STATUS} === 'E' ? 'Error' : 'None' }` — evaluated in the
-browser against the model that just arrived, with no roundtrip and no module to
-load. Write it as a backtick literal rather than a string template: a template
-has to escape every brace, and one missed escape is a parser error on the whole
-statement instead of a wrong string. Ask how we know.
+## 2. Compute in a View Attribute
 
-**A custom control lives in its own BSP.** The frontend resolves two reserved
-resource roots — `z2ui5_cci` for the custom-controls addon, `z2ui5_ccc` for a
-customer's own extension — so a control loads through the UI5 loader like any
-other module, not as a string smuggled through a view.
+UI5 expression binding is available in an app view —
+`{= ${STATUS} === 'E' ? 'Error' : 'None' }`. The browser evaluates it against
+the model that just arrived, with no roundtrip and no module to load. Write
+the expression as a backtick literal, not as a string template. A template has
+to escape every brace, and one missed escape is a parser error on the whole
+statement.
 
-**Beyond the three, nothing is an app decision; it is a system decision.** Frontend code
-of your own is a custom control in the customer frontend BSP (`z2ui5_ccc`),
-and what the initial page loads is the bootstrap the
-[user exit](https://abap2ui5.github.io/docs/advanced/extensibility/user_exits) sets through
-`z2ui5_if_ui5_exit` — one place, reviewable, and the same for every app in
-the system.
+## 3. Write a Custom Control
 
-None of them lets an app change the framework, and none requires the framework
-to change for an app. No plugin registry to learn, and no pull request to wait
-for either.
+A custom control lives in a BSP of its own. The frontend resolves two reserved
+resource roots: `z2ui5_cci` for the custom-controls addon and `z2ui5_ccc` for
+a customer's own extension. A control therefore loads through the UI5 loader
+like any other module, and not as a string inside a view.
+
+## Everything Else Is a System Decision
+
+Beyond the three, nothing is decided by an app. Frontend code of your own is a
+custom control in the customer frontend BSP (`z2ui5_ccc`). What the initial
+page loads is the bootstrap, set in the exit class that implements
+`z2ui5_if_ui5_exit`
+([User Exits](https://abap2ui5.github.io/docs/advanced/extensibility/user_exits)).
+That is one place, it can be reviewed, and it is the same for every app in the
+system.
+
+**In short:** an app extends the frontend in three declared places — a method
+call by control id, an expression in the view, a custom control — and the
+framework does not change for it.

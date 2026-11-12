@@ -1,5 +1,5 @@
 ---
-title: "The Cost of a Screen"
+title: "The Cost of a Screen: A Whole App in One Class"
 number: 1
 part: rests
 blurb: "a whole application as one class, and what has to exist beside it"
@@ -32,7 +32,7 @@ CLASS zcl_sample_job_monitor DEFINITION PUBLIC.
 
   PROTECTED SECTION.
     DATA client TYPE REF TO z2ui5_if_client.
-    METHODS set_view.
+    METHODS view_display.
     METHODS model_init.
 
   PRIVATE SECTION.
@@ -44,14 +44,16 @@ CLASS zcl_sample_job_monitor IMPLEMENTATION.
   METHOD z2ui5_if_app~main.
 
     me->client = client.
-    IF client->check_on_navigated( ).
-      model_init( ).
-      set_view( ).
+    IF client->check_on_init( ).
+      model_init( ).           " once - on the very first call
+      view_display( ).
+    ELSEIF client->check_on_navigated( ).
+      view_display( ).         " back from another app: show the view again
     ENDIF.
 
   ENDMETHOD.
 
-  METHOD set_view.
+  METHOD view_display.
 
     DATA(view) = z2ui5_cl_ui5_view_builder=>factory(
         )->ele( n = `View` ns = `mvc`
@@ -116,8 +118,9 @@ path: the column `JOB` of the table the control is bound to.
 Three things in the class carry the whole mechanism, and the rest of the
 series takes them apart one at a time. `z2ui5_if_app` is the one interface
 the framework asks for, with one method — [#3](/insights/03-one-class-no-programming-model/).
-`check_on_navigated( )` is true on the first call and on every return from
-another app, so the view is built exactly when the browser needs one —
+`check_on_init( )` is true once, on the first call: the data is read and the
+view is built. `check_on_navigated( )` is true when the user comes back from
+another app, and the view is shown again —
 [#7](/insights/07-one-click-one-request/). `_bind( runs )` hands the
 attribute to the view by reference; what the table shows is the internal
 table, and what comes back from the browser lands in the same attribute —
@@ -128,7 +131,10 @@ class is finished. Nothing is published beside it: no service, no annotation,
 no frontend artifact, no deployment step. The class travels in a transport
 like any other, and deleting it deletes the application.
 
-That is the technical side of the cost. What it means for which screens get
-built at all — the fixed cost that a small requirement cannot amortize — is
-not a question for a developer manual; the case is made on
+That is the technical side of the cost. A small requirement often cannot pay
+for a long list of artifacts, and then the screen is never built. What that
+means for an organization is on
 [What it costs](https://abap2ui5.github.io/why/#what-it-costs).
+
+**In short:** an abap2UI5 app is one class with one interface, and nothing has
+to exist beside it.

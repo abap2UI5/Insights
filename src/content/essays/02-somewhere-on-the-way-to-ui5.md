@@ -1,5 +1,5 @@
 ---
-title: "Somewhere on the Way to UI5, We Lost RTTS"
+title: "Runtime-Typed Tables: Somewhere on the Way to UI5, We Lost RTTS"
 number: 2
 part: rests
 blurb: "a table whose structure is only known at runtime, drawn in UI5"
@@ -20,9 +20,9 @@ cl_salv_table=>factory( IMPORTING r_salv_table = DATA(lo_alv)
 lo_alv->display( ).
 ```
 
-Two statements, any internal table, no type known at design time: RTTS reads
-the structure at runtime, the field catalog follows, DDIC labels come along for
-free.
+Two statements, any internal table, no type known at design time. RTTS, the
+Run Time Type Services (the `cl_abap_typedescr` classes), reads the structure
+at runtime. The field catalog follows, and the DDIC labels come with it.
 
 Data browsers, table maintenance, migration cockpits, generic reports — a
 whole category of tooling was built that way, and the generality was the
@@ -50,8 +50,8 @@ builds both, and anything resting on design-time metadata is aimed at a
 different problem.
 
 The model is assembled at runtime instead, and in ABAP that has always been
-RTTS — a service nearly every ABAP developer already uses without necessarily
-knowing the acronym (the reading half is RTTI):
+RTTS. Nearly every ABAP developer uses it without necessarily knowing the
+acronym. Its reading half is RTTI, Run Time Type Information:
 
 ![Design time: the entity type is declared before any data exists. Runtime: RTTS reads the shape from the data that is there.](/insights/02-runtime-model.svg)
 
@@ -127,9 +127,10 @@ A generic table has no contract, and that is a real price. Nothing external can
 depend on it, nothing announces that the underlying structure changed, and a
 locally defined structure gets technical names instead of labels.
 
-So this is not an upgrade over a typed service. One answers what a foreign
-system can depend on for the next five years; the other, what an internal tool
-should show right now, given a structure it was handed a millisecond ago.
+So this does not replace a typed service. A typed service answers what a
+foreign system can depend on for the next five years. A runtime-typed view
+answers what an internal tool should show right now, for a structure it
+received a millisecond ago.
 
 ## Conclusion
 
@@ -139,3 +140,6 @@ in ABAP Cloud too. Only the screen in front of it went missing.
 abap2UI5 gives runtime-typed ABAP a UI5 face again by binding the data
 directly, so a structure that exists only at runtime stops being a special
 case. It is just data — the way it was in the old SALV and field-catalog days.
+
+**In short:** a table whose structure is only known at runtime can be shown in
+UI5, because abap2UI5 binds the data directly and needs no entity type.

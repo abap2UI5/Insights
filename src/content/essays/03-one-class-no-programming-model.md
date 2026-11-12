@@ -25,12 +25,14 @@ INTERFACE z2ui5_if_app PUBLIC.
 ENDINTERFACE.
 ```
 
-That is it. abap2UI5 calls `main( )` on every roundtrip, and your class decides
-what to display and how to react: the view is built when
-`check_on_navigated( )` is true, an event changes attributes and returns —
-the shape [#7](/insights/07-one-click-one-request/) describes.
-Activate it, append `?app_start=zcl_my_app` to your service URL, and there it
-is — about as ceremonious as pressing F8.
+That is it. abap2UI5 calls `main( )` on every roundtrip — one click, one
+request, one call — and your class decides what to display and how to react.
+The view is built when `check_on_navigated( )` is true, which includes the
+first call. An event changes attributes and returns. The full form with three
+branches is [#7](/insights/07-one-click-one-request/).
+Activate the class, append `?app_start=zcl_my_app` to the URL of the abap2UI5
+service, and the app is on screen. It takes about as much ceremony as pressing
+F8.
 
 No service to define, no binding to maintain, no annotations, nothing to
 transport but the class. And no programming model either: `main( )` is an
@@ -53,7 +55,7 @@ CLASS zcl_sample_travel_edit DEFINITION PUBLIC.
 
   PROTECTED SECTION.
     DATA client TYPE REF TO z2ui5_if_client.
-    METHODS set_view.
+    METHODS view_display.
     METHODS on_save.
 
   PRIVATE SECTION.
@@ -67,14 +69,14 @@ CLASS zcl_sample_travel_edit IMPLEMENTATION.
     me->client = client.
 
     IF client->check_on_navigated( ).
-      set_view( ).
-    ELSEIF client->get_event( ) = `SAVE`.
+      view_display( ).
+    ELSEIF client->check_on_event( `SAVE` ).
       on_save( ).
     ENDIF.
 
   ENDMETHOD.
 
-  METHOD set_view.
+  METHOD view_display.
 
     DATA(view) = z2ui5_cl_ui5_view_builder=>factory(
         )->ele( n = `View` ns = `mvc`
@@ -181,16 +183,14 @@ different object, different decade, same screen in front of it:
 Three save handlers, one unchanged UI class. abap2UI5 never looks inside any of
 them — the only thing it takes back out of your class is a view.
 
-This could be called *programming model agnostic* — except RAP is a programming
-model, and a `MODIFY` is not, a BAPI is not, and neither is the EWM delivery
-class or the function module somebody wrote in the 2000s that has run every
-night since. What the three handlers have in common is not a model. It is that
-they are ABAP statements in a method — and that is the entire requirement.
+The three handlers have one thing in common: they are ABAP statements in a
+method. That is the only requirement. RAP is a programming model; a `MODIFY`,
+a BAPI or a function module from the 2000s is not, and all of them work.
 
-Which is the useful property, because a grown SAP system was never written in
-one model but in all of them at once, by decade — and the layers do not line up
-with screens: a single click routinely reads a CDS view, checks a function
-module and writes through EML.
+That matters because a grown SAP system was written in all of these styles at
+once, decade by decade. The layers do not line up with screens either: a
+single click routinely reads a CDS view, checks a function module and writes
+through EML.
 
 So nothing has to be released first, and nothing has to move. When the table
 does become a business object, `on_save( )` changes and the rest of the class
@@ -206,3 +206,6 @@ not match the shape a model has in mind, and the screen from
 [#1](/insights/01-the-cost-of-a-screen/) whose whole
 backend is one class. Where it sits next to RAP is
 [#36](/insights/36-rap-or-abap2ui5/).
+
+**In short:** an abap2UI5 app implements one interface with one method, and
+inside that method any ABAP works: EML, a `MODIFY`, a BAPI.

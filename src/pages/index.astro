@@ -11,8 +11,10 @@ import { PARTS } from "../lib/parts";
 const base = import.meta.env.BASE_URL;
 const essays = (await getCollection("essays")).sort((a, b) => a.data.number - b.data.number);
 const count = essays.length;
+/* where a newcomer starts: the smallest app, the idea, the roundtrip, the API */
+const START = [5, 6, 7, 17].map((n) => essays.find((e) => e.data.number === n)!);
 /* the axis everything turns on: three ways to put a UI5 screen in front of a
- * user, by the moment the view is fixed - HTML, so it stacks on a phone and
+ * user, by the moment the screen is decided - HTML, so it stacks on a phone and
  * follows the reader's colour scheme */
 const AXIS = [
   { name: "UI5 Freestyle", when: "build time", what: "a file in a frontend project" },
@@ -21,21 +23,27 @@ const AXIS = [
 ];
 const description = `The ideas behind abap2UI5 in ${count} short technical essays: what it rests on, how it works under the app, a working day with it, where it belongs in the landscape and what running it takes.`;
 ---
-<Page title={`abap2UI5 Insights — ${count} essays on one idea`} description={description} trail={[{ text: "Insights" }]} measure="article">
+<Page title={`abap2UI5 Insights — ${count} short essays`} description={description} trail={[{ text: "Insights" }]} measure="article">
   <div class="hello">
     <div class="hello-text">
       <h1 class="welcome">Insights</h1>
       <p class="hello-lead">
-        Want to dive deeper? Here are {count} short essays, each one idea, collected in one place — most of
-        them first published as blog posts elsewhere. Some take on an everyday problem, others step back to
-        something more abstract: what happens when the ABAP server sends the <em>screen</em> instead of only
-        the data. Have fun reading.
+        abap2UI5 is a framework for building UI5 apps purely in ABAP: one class is one app. These {count} short
+        essays explain how it works and why, one idea each. Some take on an everyday problem, others step back
+        to the idea behind it: what happens when the ABAP server sends the <em>screen</em> instead of only
+        the data.
+      </p>
+      <p class="hello-lead">
+        New here? Start with
+        {START.map((e, i) => (
+          <>{i > 0 && (i === START.length - 1 ? " and " : ", ")}<a href={`${base}${e.id}/`}>#{e.data.number} {e.data.title}</a></>
+        ))}.
       </p>
     </div>
   </div>
   <figure class="axis">
     <div class="axis-card">
-      <p class="axis-head">When the view is fixed</p>
+      <p class="axis-head">When the screen is decided</p>
       <ol class="axis-cols">
         {AXIS.map((a) => (
           <li class={a.hit ? "hit" : undefined}>
@@ -46,7 +54,7 @@ const description = `The ideas behind abap2UI5 in ${count} short technical essay
         ))}
       </ol>
     </div>
-    <figcaption>One axis: when the definition of the screen stops being changeable.</figcaption>
+    <figcaption>Three ways to build a UI5 screen, by the moment after which its definition can no longer change.</figcaption>
   </figure>
   {PARTS.map((part, i) => (
     <section class="group" id={part.id}>

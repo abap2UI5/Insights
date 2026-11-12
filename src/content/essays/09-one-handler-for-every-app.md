@@ -11,27 +11,25 @@ an OData-backed app the answer is a service: a CDS view or two, a service
 definition, a service binding, a behavior definition and its implementation, a
 projection — each belonging to exactly one application.
 
-An abap2UI5 app has none of them, and there is no SEGW project underneath
-either. Every app in the system is served by the same generic HTTP handler, and
-it is generic in a specific way: it does not know the app, the view or the
-model. It moves two strings.
+An abap2UI5 app has none of them, and no SEGW project either. Every app in the
+system is served by the same generic HTTP handler. Generic means: it does not
+know the app, the view or the model. It moves two strings, the view and the
+model of [#6](/insights/06-ui5-over-the-wire/).
 
 ![A service per screen, against one handler that knows none of them.](/insights/09-one-service.svg)
 
 *A service per screen, against one handler that knows none of them.*
 
-That is visible from inside, and it is the first thing worth trying in a
-debugger. Set a breakpoint in an app class and look at the call stack — between
-the ICF and the app there are only the framework's own two handler classes, a
-few frames each. No OData runtime, no SADL, no Gateway. The stack fits on a
-screenshot.
+You can see this in the debugger. Set a breakpoint in an app class and look at
+the call stack: between the ICF and the app there are only the framework's own
+two handler classes, a few frames each. There is no OData runtime, no SADL and
+no Gateway. The stack fits on a screenshot.
 
-The reason it can be generic is that nothing about the data is agreed in
-advance. In an OData conversation the metadata comes first and fixes the shape;
-data follows within that shape for the rest of the session. Here the model
-travels **with** every response — [#6](/insights/06-ui5-over-the-wire/) —
-so each response may carry a different one.
-There is no contract to violate because there is no contract to register.
+The handler can be generic because nothing about the data is agreed in
+advance. In an OData conversation the metadata comes first and fixes the
+shape; data follows within that shape for the rest of the session. Here the
+model travels **with** every response, so each response may carry a different
+one. No contract is registered, so none can be violated.
 
 ## How Much Handler That Is
 
@@ -52,6 +50,9 @@ RAP objects, no generated code, no build step. What that means for a review
 of the dependency is on
 [What you keep](https://abap2ui5.github.io/why/#what-you-keep).
 
-What that removes is not effort — the app still decides everything — but
-artifacts. A screen stops being a set of objects to create, name, transport and
-govern, and becomes a class.
+This removes artifacts, not effort: the app still decides everything. A screen
+is no longer a set of objects to create, name, transport and govern. It is a
+class.
+
+**In short:** one generic HTTP handler serves every app, so no app needs a
+service of its own.
