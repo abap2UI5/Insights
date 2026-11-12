@@ -6,13 +6,13 @@ blurb: "twenty-seven years in one line"
 description: "Twenty-seven years of SAP user interfaces in one line - ITS, BSP, Web Dynpro, UI5 Freestyle, RAP, abap2UI5 - and which move did not reverse."
 ---
 
-Twenty-seven years of SAP user interfaces, laid out end to end — because the
-shape of this line is easy to misremember, and the misremembering is usually
-"everything moved to the browser and stayed there".
+This is twenty-seven years of SAP user interfaces in six steps. The usual
+summary is "everything moved to the browser and stayed there". That is true
+for the rendering. It is not true for the definition of the screen, which has
+been moving back to ABAP, and abap2UI5 is the latest step of that move.
 
 **ITS, 1996.** Dynpro screens rendered as HTML by the server. Every interaction
-a full page from the server. Still in warehouses today, on scanners,
-outliving several of its successors without any fuss about it.
+a full page from the server. Still in warehouses today, on scanners.
 
 **BSP, 2001.** HTML and JavaScript written inside the ABAP stack, with ABAP
 embedded for logic. Server-side rendering again, with real control over the
@@ -39,12 +39,13 @@ renders it.
 
 *Twenty-seven years, and the one move that did not reverse.*
 
-Read as a line, it is not a march away from the server. For the first fifteen
-years ABAP built the HTML. Then rendering left for the browser, where it stays
-— because that is where a modern UI belongs, and nobody is seriously proposing
-otherwise. What has been moving back ever since is not the rendering but the
-**definition** of the screen: first as annotations, then as the view itself.
+Read as a line, the history has two parts. For the first fifteen years ABAP
+built the HTML. Then rendering moved to the browser, and it stays there,
+because that is where a modern UI belongs. What has been moving back since is
+the **definition** of the screen: first as annotations, then as the view
+itself.
 
-Which makes Over-the-Wire less of a new idea than a returning one, arriving
-with the part the old server-rendered world never had — a real control library
-in the browser.
+**In short:** sending the screen from the server
+([#6](/insights/06-ui5-over-the-wire/), "UI5 Over-the-Wire") is a returning
+idea, not a new one. What it has now, and the old server-rendered world never
+had, is a real control library in the browser.
