@@ -1,5 +1,5 @@
 ---
-title: "Where F4 Went"
+title: "Value Help: Where F4 Went"
 number: 20
 part: day
 blurb: "value help in three sizes"
@@ -10,16 +10,17 @@ description: "Value help in three sizes - suggestion items filtered in the brows
 DDIC knew the search help and the screen knew the DDIC. Press F4, get a list,
 never write a line for it.
 
-On the way to the browser that link broke: an `Input` in a UI5 view has no idea
-what type stands behind it. It is a box that holds text.
+On the way to the browser that link broke: an `Input` in a UI5 view does not
+know the type behind it. It is a field that holds text.
 
-abap2UI5 does not put the automatic version back — that would need the DDIC in
-the browser, and that is a different project. What it gives you is the three
-shapes an F4 actually comes in, each a few lines, from cheapest to widest.
+abap2UI5 does not bring the automatic value help back; that would need the
+DDIC in the browser. It offers the three forms a value help usually takes,
+each in a few lines, from the smallest to the largest.
 
-**Suggestions while typing.** The candidates are an internal table bound to
-the input; UI5 filters it in the browser, and no roundtrip is involved after
-the first render:
+## 1. Suggestions While Typing
+
+The candidates are an internal table bound to the input. UI5 filters it in
+the browser, and no roundtrip is needed after the first display:
 
 ```abap
     )->ele( `Input`
@@ -35,8 +36,9 @@ the first render:
 For a country list, a plant list, a status list — anything that fits in a
 `SELECT` and does not change while the user types — this is the whole feature.
 
-**A selection popup.** The input shows the value-help icon and raises an event
-when it is pressed. The handler runs the `SELECT`, fills a table, and opens a
+## 2. A Selection Popup
+
+The input shows the value-help icon and raises an event when it is pressed. The handler runs the `SELECT`, fills a table, and opens a
 popup with a list in it. The row the user picks is an event with an argument,
 and the handler writes it into the bound attribute:
 
@@ -47,18 +49,24 @@ and the handler writes it into the bound attribute:
         )->a( n = `showValueHelp`    b = abap_true ).
 ```
 
-No sub-app, no navigation — the popup is a second view of the same class, so
-the chosen row is simply an attribute.
+There is no sub-app and no navigation. The popup is a second view of the same
+class, so the chosen row is simply an attribute.
 
-**A reusable value help.** When the same F4 is needed from ten screens, it
-becomes a class: a `z2ui5_if_app` that displays into the popup slot, called
-with `nav_app_call( )`, and read back through `get_app_prev( )` after it
-leaves — the stack from [#18](/insights/18-call-screen-leave-screen/).
-Written once, and the DDIC search help it wraps is whatever `SELECT` it runs.
+## 3. A Reusable Value Help
 
-What is honestly gone is the part where nothing had to be written. The screen
-does not know the type behind the field any more, so the developer names the
-candidates. What came back is that the candidates can be anything an ABAP
-`SELECT` can produce — a join, a CDS view with parameters, a filtered subset
-per user, or a table that did not exist a millisecond ago, which is where
-[#2](/insights/02-somewhere-on-the-way-to-ui5/) started.
+When ten screens need the same F4, it becomes a class: a `z2ui5_if_app` that
+displays a popup, is called with `nav_app_call( )`, and is read through
+`get_app_prev( )` after it leaves. That is the stack from
+[#18](/insights/18-call-screen-leave-screen/). It is written once, and the
+search help it offers is whatever `SELECT` it runs.
+
+## What It Costs
+
+The automatic part is gone. The screen no longer knows the type behind the
+field, so the developer names the candidates. In return the candidates can be
+anything an ABAP `SELECT` can produce: a join, a CDS view with parameters, a
+subset per user, or a table whose structure is only known at runtime, as in
+[#2](/insights/02-somewhere-on-the-way-to-ui5/).
+
+**In short:** value help is written by hand in one of three sizes —
+suggestions, a popup in the same class, a reusable popup class.

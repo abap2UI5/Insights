@@ -1,15 +1,15 @@
 ---
-title: "What the Client Can Do"
+title: "The Client API: What the Client Can Do"
 number: 17
 part: day
-blurb: "the whole API surface, by shape"
+blurb: "the whole API an app calls, in one table"
 description: "The whole of z2ui5_if_client by shape - show a screen, bind data, read the event, navigate, message, follow-up actions - before knowing it by name."
 ---
 
 The app implements one interface with one method. The single parameter of that
-method is the other interface — `z2ui5_if_client` — and it is the whole of what
-an app can ask the framework for. Worth knowing by shape before knowing it by
-name, because the shape is refreshingly small:
+method is the other interface, `z2ui5_if_client`. It is everything an app can
+ask the framework for, and it is small. The table groups its methods by what
+the app wants to do:
 
 | The app wants to… | …and calls |
 |---|---|
@@ -26,9 +26,9 @@ name, because the shape is refreshingly small:
 
 *The four places the first row of the table fills.*
 
-That is a framework you can hold in your head. A design goal, not an accident.
+The API is small enough to remember, and that was a design goal.
 
-The two rows that carry the most weight are the smallest. `_bind( )` takes an
+Two of the smallest rows do the most work. `_bind( )` takes an
 ABAP variable and returns the binding path the view needs; the framework builds
 the model around whatever was bound, ships it, and writes the user's changes
 back into the same variable:
@@ -46,11 +46,11 @@ And `_event( )` names what the frontend should send when a control fires:
         )->a( n = `press` v = client->_event( `SAVE` ) ).
 ```
 
-Both are string generators, and that is all they are. Nothing is registered,
-nothing is declared: the attribute name and the event name are written into the
-view, and read back out of the request.
+Both only return a string. The attribute name and the event name are written
+into the view and read back from the request; nothing is registered or
+declared anywhere else.
 
-The last row is the escape hatch for everything that is a browser matter rather
+The last row covers everything that is a browser matter rather
 than an ABAP matter — focus a field, scroll, copy to the clipboard, download a
 file, set the tab title, raise the model size limit. Each is a constant in
 `cs_event`, and each is one call:
@@ -60,6 +60,11 @@ file, set the tab title, raise the model size limit. Each is a constant in
                               t_arg = VALUE #( ( `inputCustomer` ) ) ).
 ```
 
-That is the whole API surface an app ever touches. The full list with every
-parameter is on the [Client API](https://abap2ui5.github.io/docs/resources/api) page, generated from the
-interface itself, so it cannot drift from what the framework actually offers.
+The full list with every parameter is on the
+[Client API](https://abap2ui5.github.io/docs/resources/api) page. It is
+generated from the interface itself, so it always matches what the framework
+offers.
+
+**In short:** an app talks to the framework only through `client`: show a
+view, bind data, read the event, navigate, show a message, ask the browser to
+do something.

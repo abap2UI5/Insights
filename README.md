@@ -3,8 +3,8 @@
 Short technical essays about one idea: what happens when the ABAP server sends
 the *screen* instead of only the data. What the framework rests on, how it
 works under the app, what a working day with it looks like, where it belongs
-in the landscape and what running it takes. The case for using it is the
-why-site's, and linked.
+in the landscape and what running it takes. Why you would use it is covered on
+the page for decision makers (linked below).
 
 **→ https://abap2ui5.github.io/insights/**
 

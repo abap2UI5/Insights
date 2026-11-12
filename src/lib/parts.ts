@@ -14,18 +14,18 @@ export interface Part {
 export const PARTS: Part[] = [
   {
     id: "rests",
-    title: "What It Rests On",
-    lead: "A whole app on one page first, then what it stands on: a model that may be typed at runtime, an app that is one class with no programming model around it, and the UI5 vocabulary with nothing in between.",
+    title: "Foundations",
+    lead: "A whole app on one page first, then the three things it is built on: data whose type is only known at runtime, an app that is one class, and every UI5 control without a layer in between.",
   },
   {
     id: "how",
     title: "How It Works",
-    lead: "The mechanism under the app, one piece per article. The block to read end to end if you like knowing why something works before you use it.",
+    lead: "The mechanism under the app, one piece per article. Read this part from start to end if you want to know why something works before you use it.",
   },
   {
     id: "day",
     title: "A Working Day",
-    lead: "What an ABAP developer meets in the first week, and how each old habit carries over — the stack, the URL, F4, messages, the LUW, locks, the long-running report, authorizations, the launchpad tile.",
+    lead: "What an ABAP developer needs in the first week, and what each classic habit becomes: the client API, navigation, the URL, F4, messages, the LUW, locks, the long-running report, authorizations, the launchpad tile.",
   },
   {
     id: "where",
@@ -39,8 +39,8 @@ export const PARTS: Part[] = [
   },
   {
     id: "coda",
-    title: "Coda",
-    lead: "One consequence nobody designed for.",
+    title: "Afterword",
+    lead: "One consequence that was not planned: why AI agents handle these apps well.",
   },
 ];
 

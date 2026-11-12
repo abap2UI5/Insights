@@ -10,8 +10,7 @@ The framework is ABAP Cloud compliant. It is written in the ABAP for Cloud
 language version, it calls released APIs only, it modifies no standard SAP
 code, and it installs on BTP ABAP Environment and S/4HANA Public Cloud.
 
-Now the uncomfortable part: none of that says anything about the app somebody
-builds with it.
+None of that says anything about the app somebody builds with it.
 
 ABAP Cloud is a restricted language version, and the restriction that matters
 most on a screen is this one: no direct access to SAP database tables. The
@@ -51,7 +50,6 @@ Same screen. Same framework. Same UI, down to the pixel. One of them survives
 the next upgrade and can move to a cloud system, and the other cannot — and
 nothing about the user interface is involved in the difference.
 
-That is worth saying plainly, because a framework's badge is easy to mistake
-for a guarantee. Clean core is not a property a dependency grants an
-application. It is a property of what the application reads and writes, and it
-is decided in the `SELECT`.
+**In short:** a compliant framework does not make an app clean core. Clean
+core is a property of what the application reads and writes, and it is decided
+in the `SELECT`.

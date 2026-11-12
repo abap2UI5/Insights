@@ -16,43 +16,56 @@ levels**:
 | **C** | Standard ABAP | SAP-internal objects, neither released nor classified | conditionally — re-check before every upgrade |
 | **D** | Standard ABAP | modifications, implicit enhancements, objects SAP marks as no API | no |
 
-They replaced the three-tier model, and — good news for anybody who spent a
-workshop on tiers — nothing written under the tiers has to be migrated: tier 1
-is Level A, tier 2 was never a layer of its own (its wrappers still exist and
-an app calling one stays Level A), and tier 3 is split into B, C and D by what
-it touches. The ABAP Test Cockpit and the Cloudification Repository Viewer say
-which level an object lands on, so this is measurable rather than a matter of
-opinion.
+The levels replaced the three-tier model. Nothing written under the tiers has
+to be migrated:
+
+| Old tier | New level |
+|---|---|
+| Tier 1 | Level A |
+| Tier 2 (wrappers) | no level of its own: the wrappers still exist, and an app that calls one stays Level A |
+| Tier 3 | Level B, C or D, depending on what the code uses |
+
+The ABAP Test Cockpit and the Cloudification Repository Viewer say which level
+an object lands on, so the level can be measured.
 
 abap2UI5 is Level A. It is written in ABAP for Cloud Development and calls
 released APIs only.
 
-Which, as [the last article](/insights/32-cloud-ready-is-a-property-of-your-app/)
-insisted, says nothing about your app. Which level an app reaches is decided by
-what the app calls, and a screen built on a released API is Level A whether it
-renders through abap2UI5 or anything else.
+As [#32](/insights/32-cloud-ready-is-a-property-of-your-app/) said, that says
+nothing about your app. The level of an app is decided by what the app calls.
+A screen built on a released API is Level A, whether it renders through
+abap2UI5 or anything else.
 
-Which leaves the case that actually comes up on a Tuesday: the API you need is
-not released.
+## When the API You Need Is Not Released
 
-The move is a wrapper. A class in Standard ABAP that calls the classic API and
-is itself released for ABAP for Cloud Development. It is graded on its own — B,
+This is the case that comes up in every project. The answer is a wrapper: a
+class in Standard ABAP that calls the classic API and is itself released for
+ABAP for Cloud Development. It is graded on its own — B,
 as long as it stays with classic APIs — and the app calling it stays A.
 
 ![The app stays in ABAP for Cloud Development and reaches a classic API through a wrapper written in Standard ABAP](/insights/use_cases/on_stack_wrapper.svg)
 
-The value of that is not the grade. Nobody's users care about the grade. It is
-that the part of the system which is not upgrade-stable now has a name, a size
-and a boundary — one class to re-check when SAP changes the classic API
-underneath it, instead of a search through every app that ever touched it: the
-wrapper does not make the dependency clean, it makes it findable.
+*The app calls the wrapper, and the wrapper calls the classic API.*
+
+The value of the wrapper is that the part of the system which is not
+upgrade-stable now has a name, a size and a boundary. When SAP changes the
+classic API, there is one class to re-check, and no search through every app
+that ever touched it. The wrapper does not make the dependency clean; it makes
+it findable.
+
+## When the App Itself Is Standard ABAP
 
 On S/4HANA Private Cloud and on-premise the app itself may also be Standard
-ABAP, and on releases that do not know ABAP for Cloud Development yet that is
-the only option. The framework stays Level A either way, so moving an app up a
-level later means changing what it calls, not how it renders:
+ABAP. On releases that do not know ABAP for Cloud Development yet, that is the
+only option. The framework stays Level A either way. Moving an app up a level
+later therefore means changing what it calls; how it renders stays the same:
 
 ![Apps written in Standard ABAP call classic APIs or SAP-internal objects, while abap2UI5 itself stays Level A](/insights/use_cases/on_stack_level_b.svg)
+
+*Each app has the level of what it calls; the framework is Level A in every case.*
+
+**In short:** the framework is Level A, an app has the level of what it calls,
+and a wrapper keeps an unreleased API in one named place.
 
 *The levels are SAP's, from the
 [Clean Core Extensibility white paper](https://community.sap.com/t5/technology-blog-posts-by-sap/why-clean-core-matters-get-some-insights-into-our-brand-new-extensibility/ba-p/14163750)

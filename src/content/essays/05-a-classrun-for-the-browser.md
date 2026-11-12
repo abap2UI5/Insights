@@ -1,8 +1,8 @@
 ---
-title: "A Classrun for the Browser"
+title: "Hello World: A Classrun for the Browser"
 number: 5
 part: rests
-blurb: "the shape it copied"
+blurb: "the smallest app: one interface, one method, and it runs"
 description: "The shape abap2UI5 copied from if_oo_adt_classrun - one interface, one method, and it runs - and why a one-class app is one thing to read."
 ---
 
@@ -25,7 +25,7 @@ One interface, one method, F9. No transaction, no program, no repository object
 beside it. It runs where it was written, and every ABAP developer has used it
 to answer a question in thirty seconds.
 
-That is the shape abap2UI5 copied — and yes, the resemblance is on purpose:
+abap2UI5 copied that form on purpose. This is a complete app:
 
 ```abap
 CLASS zcl_sample_ui5 DEFINITION PUBLIC.
@@ -43,16 +43,14 @@ CLASS zcl_sample_ui5 IMPLEMENTATION.
 ENDCLASS.
 ```
 
-Same silhouette, different `out`. What the second one adds is only the
-destination: it runs in a browser instead of the console, follows the Fiori
-design guidelines, and can be sent to a colleague as a URL rather than as an
-instruction to open ADT and press F9. That last difference is smaller than it
-sounds and matters more than it should — a link gets opened, an instruction
+The form is the same; only the output goes somewhere else. The second class
+runs in a browser instead of the console and follows the Fiori design
+guidelines. You can send it to a colleague as a URL, where the first one needs
+the instruction to open ADT and press F9. People open a link; an instruction
 gets postponed.
 
-There is a property here worth mentioning, and it is not about convenience. A
-small application is one class, and a class is one thing to read: state, screen
-and logic in the same place, top to bottom. A reviewer, a colleague inheriting
+One property deserves a mention. A small application is one class, and a class
+is one thing to read: state, screen and logic in the same place, top to bottom. A reviewer, a colleague inheriting
 it, a search across the system, an agent asked to change something — each can
 hold the whole thing at once. Code that is understood in one piece is code that
 gets changed confidently.
@@ -60,4 +58,7 @@ gets changed confidently.
 That holds for the small screens this series keeps coming back to. A larger app
 splits into several classes like any other ABAP program does, and how is
 [its own article](/insights/28-when-one-class-is-not-enough/). The
-point is where it starts: one class, one method, and it runs.
+point is where it starts.
+
+**In short:** the smallest abap2UI5 app is one class that implements
+`z2ui5_if_app`, with one method, `main`.
