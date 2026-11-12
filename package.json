@@ -2,7 +2,7 @@
   "name": "abap2ui5-insights",
   "version": "1.0.0",
   "private": true,
-  "description": "abap2UI5 Insights - 37 essays on one idea, https://abap2ui5.github.io/insights/",
+  "description": "abap2UI5 Insights - essays on one idea, https://abap2ui5.github.io/insights/",
   "license": "MIT",
   "type": "module",
   "engines": {
